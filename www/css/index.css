@@ -95,7 +95,7 @@ a:focus {
 
 .header{
     position: fixed;
-    display: -webkit-box-flex;
+    display: -webkit-box;
     display : -webkit-flex;
     display : flex;
     flex-direction : row;
@@ -157,7 +157,7 @@ a:focus {
     -webkit-box-direction: normal;
     -webkit-box-orient: horizontal;
     box-sizing: border-box;
-    display: -webkit-box-flex;
+    display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     flex-direction: row;
@@ -196,7 +196,7 @@ a:focus {
     -webkit-box-direction: normal;
     -webkit-box-orient: horizontal;
     box-sizing: border-box;
-    display: -webkit-box-flex;
+    display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     flex-direction: row;

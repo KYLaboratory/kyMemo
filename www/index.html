@@ -29,7 +29,7 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="telephone=no" charset="utf-8">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -37,13 +37,33 @@
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
+            <!-- UI部分 ↓ -->
+            <div id="twitter">
+                <div class="TweetArea">
+                    ここにツイートを表示する
+                </div>
+            </div>
+         
+            <input id="keywordInput" placeholder="検索したいキーワード"></input> <!-- テキストボックス -->
+            <button id="searchButton">検索!</button> <!-- 検索実行用ボタン -->
         </div>
+
+        <!-- jqueryを読み込む -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+     
+        <!-- ライブラリの読み込み部分 ↓ -->
+        <!-- OAuth認証のライブラリを読み込む -->
+        <script type="text/javascript" src="js/oauth.js"></script>
+        <script type="text/javascript" src="js/sha1.js"></script>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+     
+        <!-- 処理部分を記述 ↓ -->
+        <!-- script type="text/javascript" src="js/search-tweets.js"></script-->
     </body>
 </html>

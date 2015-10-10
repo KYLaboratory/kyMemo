@@ -99,7 +99,7 @@ a:focus {
     display : -webkit-flex;
     display : flex;
     flex-direction : row;
-    height : 30px;
+    height : 45px;
     width : 100%;
     background-color: rgb(91,229,171);
 }
@@ -119,19 +119,36 @@ a:focus {
     max-width: none;
     text-align: left;
     text-shadow: rgba(0, 0, 0, 0.498039) 0px -1px 0px;
+    padding : 10px;
 }
 
 .header_configure{
+    height: 100%;
     display : block;
 }
 
+.header_configure button{
+    background-color: transparent;
+    border-color: rgb(255,255,255);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: rgb(255,255,255);
+    margin: 5px;
+    padding : 5px;
+    height: 34px;
+}
+
 .views{
-    padding-top: 30px;
+    padding-top: 45px;
+    padding-bottom: 168px;
 }
 
 .item{
     background-color: rgb(255, 255, 255);
     border-bottom-color: rgb(238, 238, 238);
+    border-collapse: 0;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     color: rgb(51, 51, 51);
@@ -265,7 +282,7 @@ a:focus {
 .map{
     position: fixed;
     bottom : 0;
-    height : 25%;
+    height : 168px;
     width : 100%;
     background-color: rgb(0,0,0);
 }

@@ -97,18 +97,31 @@ var app = {
             var url = OAuth.addToURL(message.action, message.parameters);
 
             // ajaxによる通信
+            try {
             $.ajax({
                 type: message.method,
+                contentType: "application/javascript",
                 url: url, // リクエスト先のURL
                 dataType: "jsonp",
                 jsonp: false,
                 cache: true,
-            });
+            }).done(function(result){
+                alert("successful ajax");
+            }).fail(function(xhr, ajaxOptions, thrownError){
+                alert("error");
+                alert(ajaxOptions);
+                alert(thrownError);
+            });}
+            catch (e) {
+                alert(e);
+            }
         }
 
         // UIの更新
         function update(data){ // 引数(data)に取得したデータが入ってくる
-            alert("1");
+            try {
+            
+            alert("2");
             $(".TweetArea").empty(); // 表示エリアを空にする
             var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
             for( var i = 0; i < result.length; i++ ) {
@@ -120,6 +133,10 @@ var app = {
                 alert("test3"); 
                 // Tweet表示エリアに取得したデータを追加していく
                 $(".TweetArea").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+            }
+        }
+        catch (e) {
+                alert(e);
             }
         }
         

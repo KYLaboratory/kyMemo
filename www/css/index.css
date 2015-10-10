@@ -311,3 +311,17 @@ a:focus {
     width : 100%;
     background-color: rgb(0,0,0);
 }
+
+#twitter {
+    /* サイズ */
+    width: 1000px;
+    height: 500px;
+    /* 内部コンテンツが増えた場合に、スクロールさせる */
+    overflow: auto;
+    color: #666; /* 文字の色 */
+    border: 1px solid #CCC; /* 枠の色 */
+}
+
+.Tweet表示エリア {
+    font-size: 12px; /*文字のサイズ*/
+}

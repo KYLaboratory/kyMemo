@@ -28,20 +28,209 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" charset="UTF-8">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <title>kyMemo</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div class="header">
+            <div class="header_title">
+                kyMemo
             </div>
+            <div class="header_configure">
+                <button type="button">設定</button>
+            </div>
+        </div>
+        <div class="views">
+            <div class="tweet">
+                <ul class="placeline">
+                    <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                                        <li class="item">
+                        <div class="tweet_body">
+                            <div class="icon_image"></div>
+                            <div class="tweet_content">
+                                <div class="tweet_row">
+                                    <div class="user_name">
+                                        <span class="full_name">foobar</span>
+                                        <span class="screen_name">@foo</span>
+                                    </div>
+                                    <div class="time_stamp">
+                                        2hours ago
+                                    </div>
+                                </div>
+                                <div class="tweet_text">
+                                    hogehoge<br>
+                                    hogehoge<br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>  
+            </div>
+        </div>
+        <div class="map">
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

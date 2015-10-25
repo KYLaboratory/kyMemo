@@ -87,7 +87,7 @@ var app = {
                     "q": keywords, // 検索するキーワード
                     "lang": "ja", // 日本語に設定
                     "result_type": "recent", // 最新の情報を取得するように設定
-                    callback: "update" // 取得したデータをupdate関数に渡すよう設定
+                    //callback: "update" // 取得したデータをupdate関数に渡すよう設定
                 }
             };
 
@@ -97,32 +97,35 @@ var app = {
             var url = OAuth.addToURL(message.action, message.parameters);
 
             // ajaxによる通信
-            try {
             $.ajax({
                 type: message.method,
-                contentType: "application/javascript",
+                // contentType: "application/javascript; charset=utf-8",
                 url: url, // リクエスト先のURL
-                dataType: "jsonp",
-                jsonp: false,
+                //dataType: "jsonp",
+                //jsonp: false,
                 cache: true,
-            }).done(function(result){
+            }).done(function(data){
                 alert("successful ajax");
+                $(".TweetArea").empty(); // 表示エリアを空にする
+                var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
+                for( var i = 0; i < result.length; i++ ) {
+                    var name = result[i].user.name; // ツイートした人の名前
+                    var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
+                    var content = result[i].text; // ツイートの内容
+                    var updated = result[i].created_at; // ツイートした時間
+                    var time = "";
+                    // Tweet表示エリアに取得したデータを追加していく
+                    $(".TweetArea").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+                }
             }).fail(function(xhr, ajaxOptions, thrownError){
-                alert("error");
                 alert(ajaxOptions);
                 alert(thrownError);
-            });}
-            catch (e) {
-                alert(e);
-            }
+            });
         }
 
         // UIの更新
         function update(data){ // 引数(data)に取得したデータが入ってくる
-            try {
-            
-            alert("2");
-            $(".TweetArea").empty(); // 表示エリアを空にする
+            $(".Tweet表示エリア").empty(); // 表示エリアを空にする
             var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
             for( var i = 0; i < result.length; i++ ) {
                 var name = result[i].user.name; // ツイートした人の名前
@@ -130,13 +133,8 @@ var app = {
                 var content = result[i].text; // ツイートの内容
                 var updated = result[i].created_at; // ツイートした時間
                 var time = "";
-                alert("test3"); 
                 // Tweet表示エリアに取得したデータを追加していく
-                $(".TweetArea").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
-            }
-        }
-        catch (e) {
-                alert(e);
+                $(".Tweet表示エリア").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
             }
         }
         

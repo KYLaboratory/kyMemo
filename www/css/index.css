@@ -95,10 +95,11 @@ a:focus {
 
 .header{
     position: fixed;
+    display: -webkit-box;
     display : -webkit-flex;
     display : flex;
     flex-direction : row;
-    height : 30px;
+    height : 45px;
     width : 100%;
     background-color: rgb(91,229,171);
 }
@@ -118,19 +119,36 @@ a:focus {
     max-width: none;
     text-align: left;
     text-shadow: rgba(0, 0, 0, 0.498039) 0px -1px 0px;
+    padding : 10px;
 }
 
 .header_configure{
+    height: 100%;
     display : block;
 }
 
+.header_configure button{
+    background-color: transparent;
+    border-color: rgb(255,255,255);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: rgb(255,255,255);
+    margin: 5px;
+    padding : 5px;
+    height: 34px;
+}
+
 .views{
-    padding-top: 30px;
+    padding-top: 45px;
+    padding-bottom: 168px;
 }
 
 .item{
     background-color: rgb(255, 255, 255);
     border-bottom-color: rgb(238, 238, 238);
+    border-collapse: 0;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     color: rgb(51, 51, 51);
@@ -156,17 +174,10 @@ a:focus {
     -webkit-box-direction: normal;
     -webkit-box-orient: horizontal;
     box-sizing: border-box;
-    color: rgb(51, 51, 51);
+    display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     flex-direction: row;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 18px;
-    list-style-type: none;
-    text-align: left;
     padding-bottom: 14px;
     padding-left: 10px;
     padding-right: 10px;
@@ -177,14 +188,7 @@ a:focus {
     background-color: rgb(0,0,0);
     height: 48px;
     width: 48px;
-    color: rgb(51, 51, 51);
     display: block;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 18px;
-    list-style-type: none;
     overflow-x: hidden;
     overflow-y: hidden;
     text-align: right;
@@ -192,18 +196,11 @@ a:focus {
 
 .tweet_content{
     -webkit-box-flex: 1;
-    color: rgb(51, 51, 51);
     display: block;
     -webkit-flex : 1;
     flex-basis: 0%;
     flex-grow: 1;
     flex-shrink: 1;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 18px;
-    list-style-type: none;
     margin-bottom: -4px;
     margin-left: 8px;
     margin-right: 0px;
@@ -216,17 +213,11 @@ a:focus {
     -webkit-box-direction: normal;
     -webkit-box-orient: horizontal;
     box-sizing: border-box;
-    color: rgb(51, 51, 51);
+    display: -webkit-box;
     display: -webkit-flex;
     display: flex;
     flex-direction: row;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
     height: 18px;
-    line-height: 18px;
-    list-style-type: none;
     overflow-x: hidden;
     overflow-y: hidden;
     text-align: left;
@@ -240,12 +231,6 @@ a:focus {
     flex-basis: 0%;
     flex-grow: 1;
     flex-shrink: 1;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 18px;
-    list-style-type: none;
     margin-right: 5px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -255,12 +240,8 @@ a:focus {
 }
 
 .full_name{
-    color: rgb(51, 51, 51);
     display: inline-block;
-    font-size: 14px;
     font-weight: bold;
-    line-height: 18px;
-    list-style-type: none;
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -275,9 +256,6 @@ a:focus {
     direction: ltr;
     display: inline;
     font-size: 12px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
     height: auto;
     line-height: 14px;
     list-style-type: none;
@@ -294,9 +272,6 @@ a:focus {
     color: rgb(204, 204, 204);
     display: block;
     font-size: 12px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
     height: 16px;
     line-height: 14px;
     list-style-type: none;
@@ -307,7 +282,7 @@ a:focus {
 .map{
     position: fixed;
     bottom : 0;
-    height : 25%;
+    height : 168px;
     width : 100%;
     background-color: rgb(0,0,0);
 }

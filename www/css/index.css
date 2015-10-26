@@ -322,6 +322,6 @@ a:focus {
     border: 1px solid #CCC; /* 枠の色 */
 }
 
-.Tweet表示エリア {
+.TweetList {
     font-size: 12px; /*文字のサイズ*/
 }

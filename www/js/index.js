@@ -39,14 +39,20 @@ var app = {
         // current GPS coordinates
         //
         var onSuccess = function(position) {
-            alert('Latitude: '          + position.coords.latitude          + '\n' +
-                  'Longitude: '         + position.coords.longitude         + '\n' +
-                  'Altitude: '          + position.coords.altitude          + '\n' +
-                  'Accuracy: '          + position.coords.accuracy          + '\n' +
-                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                  'Heading: '           + position.coords.heading           + '\n' +
-                  'Speed: '             + position.coords.speed             + '\n' +
-                  'Timestamp: '         + position.timestamp                + '\n');
+            // alert('Latitude: '          + position.coords.latitude          + '\n' +
+            //       'Longitude: '         + position.coords.longitude         + '\n' +
+            //       'Altitude: '          + position.coords.altitude          + '\n' +
+            //       'Accuracy: '          + position.coords.accuracy          + '\n' +
+            //       'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+            //       'Heading: '           + position.coords.heading           + '\n' +
+            //       'Speed: '             + position.coords.speed             + '\n' +
+            //       'Timestamp: '         + position.timestamp                + '\n');
+
+            // リクエスト先のURL
+            var url = "https://api.twitter.com/1.1/search/tweets.json";
+
+            // Tweet検索関数の呼び出し
+            getTweets(url, position.coords.latitude, position.coords.longitude);
         };
 
         // onError Callback receives a PositionError object
@@ -56,7 +62,7 @@ var app = {
                   'message: ' + error.message + '\n');
         }
 
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 10000, timeout: 20000, enableHighAccuracy: true });
 
         var consumerKey    = "oDYBiFlyMdlEjGZv6d8DKQ1DF";
         var consumerSecret = "Q5lXboEPseBpaIKnKkMLNHZmOnEM5wIs755bg0jv0fhUCCGnDE";
@@ -65,9 +71,23 @@ var app = {
 
         var count = 10; // 表示する件数
 
+        // UIの更新
+        function updateTweetList(data){ // 引数(data)に取得したデータが入ってくる
+            $(".TweetList").empty(); // 表示エリアを空にする
+            var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
+            for( var i = 0; i < result.length; i++ ) {
+                var name = result[i].user.name; // ツイートした人の名前
+                var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
+                var content = result[i].text; // ツイートの内容
+                var updated = result[i].created_at; // ツイートした時間
+                var time = "";
+                // Tweet表示エリアに取得したデータを追加していく
+                $(".TweetList").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+            }
+        }
+
         // Twitter APIを使用してTweetを取得する部分
-        // function getTwitter(action, options) {
-        function getTwitter(action, keywords) {
+        function getTweets(action, latitude, longitude) {
 
             var accessor = {
                 consumerSecret: consumerSecret,
@@ -84,10 +104,9 @@ var app = {
                     oauth_consumer_key: consumerKey, // コンシューマーキー
                     oauth_token: accessToken, // アクセストークン
                     count: count, // 取得する件数
-                    "q": keywords, // 検索するキーワード
+                    "q": "geocode:" + latitude + ',' + longitude + ',' + "0.1km" + " -\"I'm at\"", // 検索するキーワード
                     "lang": "ja", // 日本語に設定
-                    "result_type": "recent", // 最新の情報を取得するように設定
-                    //callback: "update" // 取得したデータをupdate関数に渡すよう設定
+                    "result_type": "recent" // 最新の情報を取得するように設定
                 }
             };
 
@@ -99,46 +118,17 @@ var app = {
             // ajaxによる通信
             $.ajax({
                 type: message.method,
-                // contentType: "application/javascript; charset=utf-8",
                 url: url, // リクエスト先のURL
-                //dataType: "jsonp",
-                //jsonp: false,
                 cache: true,
             }).done(function(data){
-                alert("successful ajax");
-                $(".TweetArea").empty(); // 表示エリアを空にする
-                var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
-                for( var i = 0; i < result.length; i++ ) {
-                    var name = result[i].user.name; // ツイートした人の名前
-                    var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
-                    var content = result[i].text; // ツイートの内容
-                    var updated = result[i].created_at; // ツイートした時間
-                    var time = "";
-                    // Tweet表示エリアに取得したデータを追加していく
-                    $(".TweetArea").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
-                }
+                updateTweetList(data);
             }).fail(function(xhr, ajaxOptions, thrownError){
                 alert(ajaxOptions);
                 alert(thrownError);
             });
         }
-
-        // UIの更新
-        function update(data){ // 引数(data)に取得したデータが入ってくる
-            $(".Tweet表示エリア").empty(); // 表示エリアを空にする
-            var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
-            for( var i = 0; i < result.length; i++ ) {
-                var name = result[i].user.name; // ツイートした人の名前
-                var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
-                var content = result[i].text; // ツイートの内容
-                var updated = result[i].created_at; // ツイートした時間
-                var time = "";
-                // Tweet表示エリアに取得したデータを追加していく
-                $(".Tweet表示エリア").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
-            }
-        }
         
-        // idに検索ボタンと指定されている button要素にクリックイベントを設定
+        // (デバッグ用)idに検索ボタンと指定されている button要素にクリックイベントを設定
         document.getElementById("searchButton").addEventListener("click", function(){
             // idにキーワード入力欄と指定されている input要素に入力されている値を取得
             var keywords = document.getElementById("keywordInput").value;
@@ -155,7 +145,7 @@ var app = {
             var url = "https://api.twitter.com/1.1/search/tweets.json";
 
             // Tweet検索関数の呼び出し
-            getTwitter(url, keywords);
+            getTweets(url, "35.691322", "139.709101");
         });
     },
     // Update DOM on a Received Event

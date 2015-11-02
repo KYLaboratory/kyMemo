@@ -110,7 +110,7 @@ var app = {
                     oauth_consumer_key: consumerKey, // コンシューマーキー
                     oauth_token: accessToken, // アクセストークン
                     count: count, // 取得する件数
-                    "q": "geocode:" + latitude + ',' + longitude + ',' + "0.1km" + " -\"I'm at\"", // 検索するキーワード
+                    "q": "geocode:" + latitude + ',' + longitude + ',' + "1km" + " -I'm", // 検索するキーワード
                     "lang": "ja", // 日本語に設定
                     "result_type": "recent" // 最新の情報を取得するように設定
                 }

@@ -47,6 +47,12 @@ var app = {
             //       'Heading: '           + position.coords.heading           + '\n' +
             //       'Speed: '             + position.coords.speed             + '\n' +
             //       'Timestamp: '         + position.timestamp                + '\n');
+        var element = document.getElementById('geolocation');
+        element.innerHTML = '<br />' + '<br />' +
+                            'Latitude: '  + position.coords.latitude      + '<br />' +
+                            'Longitude: ' + position.coords.longitude     + '<br />' +
+                            'Accuracy: '  + position.coords.accuracy      + '<br />' +
+                            'Timestamp: ' + position.timestamp            + '<br />' + '<hr />';
 
             // リクエスト先のURL
             var url = "https://api.twitter.com/1.1/search/tweets.json";

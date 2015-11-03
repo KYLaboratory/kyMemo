@@ -33,7 +33,14 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        //app.receivedEvent('deviceready');
+
+        // Define a div tag with id="map_canvas"
+        var mapDiv = document.getElementById("map_canvas");
+
+        // Initialize the map plugin
+        var map = plugin.google.maps.Map.getMap(mapDiv);
+
         // onSuccess Callback
         // This method accepts a Position object, which contains the
         // current GPS coordinates
@@ -47,12 +54,17 @@ var app = {
             //       'Heading: '           + position.coords.heading           + '\n' +
             //       'Speed: '             + position.coords.speed             + '\n' +
             //       'Timestamp: '         + position.timestamp                + '\n');
-        var element = document.getElementById('geolocation');
-        element.innerHTML = '<br />' + '<br />' +
-                            'Latitude: '  + position.coords.latitude      + '<br />' +
-                            'Longitude: ' + position.coords.longitude     + '<br />' +
-                            'Accuracy: '  + position.coords.accuracy      + '<br />' +
-                            'Timestamp: ' + position.timestamp            + '<br />' + '<hr />';
+            var element = document.getElementById('geolocation');
+            element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br>' +
+                                'Longitude: ' + position.coords.longitude     + '<br>' +
+                                'Accuracy: '  + position.coords.accuracy      + '<br>' +
+                                'Timestamp: ' + position.timestamp            + '<br>';
+
+            var targetPosition = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.moveCamera({
+                'target': targetPosition,
+                'zoom': 17
+            });
 
             // リクエスト先のURL
             var url = "https://api.twitter.com/1.1/search/tweets.json";

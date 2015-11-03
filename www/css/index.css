@@ -287,16 +287,29 @@ a:focus {
     background-color: rgb(0,0,0);
 }
 
+#map_canvas{
+    height : 200px;
+    width : 100%;
+}
+
 #twitter {
     /* サイズ */
-    width: 1000px;
-    height: 500px;
+    height: 300px;
+    width: 100%;
     /* 内部コンテンツが増えた場合に、スクロールさせる */
     overflow: auto;
     color: #666; /* 文字の色 */
     border: 1px solid #CCC; /* 枠の色 */
+    /*padding-top: 213px;
+    padding-bottom: 168px;*/
 }
 
 .TweetList {
     font-size: 12px; /*文字のサイズ*/
+}
+
+#geolocation {
+    height: 50px;
+    width: 100%;
+    font-size: 8px;
 }

@@ -143,6 +143,8 @@ a:focus {
 .views{
     padding-top: 45px;
     padding-bottom: 168px;
+    overflow: auto;
+    border: 1px solid #CCC; /* 枠の色 */
 }
 
 .item{

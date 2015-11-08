@@ -91,7 +91,7 @@ var app = {
 
         // UIの更新
         function updateTweetList(data){ // 引数(data)に取得したデータが入ってくる
-            $(".TweetList").empty(); // 表示エリアを空にする
+            $(".placeline").empty(); // 表示エリアを空にする
             var result = data.statuses; // 取得したデータから、メソッドチェーンで必要なものを取得
             for( var i = 0; i < result.length; i++ ) {
                 var name = result[i].user.name; // ツイートした人の名前
@@ -100,7 +100,23 @@ var app = {
                 var updated = result[i].created_at; // ツイートした時間
                 var time = "";
                 // Tweet表示エリアに取得したデータを追加していく
-                $(".TweetList").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+                $(".placeline").append(
+                    '<li class="item">'
+                    +'<div class="tweet_body">'
+                    +'<div class="icon_image"><img src="'+imgsrc+'"></div>'
+                    +'<div class="tweet_content">'
+                    +'<div class="tweet_row">'
+                    +'<div class="user_name">'
+                    +'<span class="full_name">'+name+'</span>'
+                    +'<span class="screen_name">@'+'foo'+'</span>'
+                    +'</div>'
+                    +'<div class="time_stamp">'+updated+'</div>'
+                    +'</div>'
+                    +'<div class="tweet_text">'+content+'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</li>'
+                    );
             }
         }
 

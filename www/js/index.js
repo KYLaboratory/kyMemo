@@ -33,8 +33,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        //app.receivedEvent('deviceready');
-
         // Define a div tag with id="map_canvas"
         var mapDiv = document.getElementById("map_canvas");
 
@@ -75,12 +73,12 @@ var app = {
 
         // onError Callback receives a PositionError object
         //
-        function onError(error) {
+        var onError = function(error) {
             alert('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
-        }
+        };
 
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 10000, timeout: 20000, enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 27000, enableHighAccuracy: true });
 
         var consumerKey    = "oDYBiFlyMdlEjGZv6d8DKQ1DF";
         var consumerSecret = "Q5lXboEPseBpaIKnKkMLNHZmOnEM5wIs755bg0jv0fhUCCGnDE";
@@ -165,17 +163,6 @@ var app = {
             // Tweet検索関数の呼び出し
             getTweets(url, "35.691322", "139.709101");
         });
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     }
 };
 

@@ -96,9 +96,19 @@ var app = {
                 var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
                 var content = result[i].text; // ツイートの内容
                 var updated = result[i].created_at; // ツイートした時間
+                var coordinates = result[i].geo.coordinates;
                 var time = "";
                 // Tweet表示エリアに取得したデータを追加していく
                 $(".TweetList").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+                map.addMarker({
+                    'position': new plugin.google.maps.LatLng(coordinates[0], coordinates[1]),
+                    'title': content,
+                    'icon': {
+                        url: imgsrc
+                    }
+                }, function(marker) {
+                    marker.showInfoWindow();
+                });
             }
         }
 

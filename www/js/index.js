@@ -41,6 +41,28 @@ var app = {
         // Initialize the map plugin
         var map = plugin.google.maps.Map.getMap(mapDiv);
 
+        // Twitter API利用のための初期化処理
+        var consumerKey    = "oDYBiFlyMdlEjGZv6d8DKQ1DF";
+        var consumerSecret = "Q5lXboEPseBpaIKnKkMLNHZmOnEM5wIs755bg0jv0fhUCCGnDE";
+        var bearerToken;
+        var codeBird = new Codebird;
+        codeBird.setConsumerKey(consumerKey, consumerSecret);
+
+        // OAuth2.0認証でTwitterAPIからBearerトークンを取得する
+        codeBird.__call(
+            "oauth2_token",
+            {},
+            function (reply, err) {
+                if (err) {
+                    alert("error response or timeout exceeded" + err.error);
+                }
+                if (reply) {
+                    bearerToken = reply.access_token;
+                    codeBird.setBearerToken(bearerToken);
+                }
+            }
+        );
+
         // onSuccess Callback
         // This method accepts a Position object, which contains the
         // current GPS coordinates
@@ -82,10 +104,9 @@ var app = {
 
         var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 10000, timeout: 20000, enableHighAccuracy: true });
 
-        var consumerKey    = "oDYBiFlyMdlEjGZv6d8DKQ1DF";
-        var consumerSecret = "Q5lXboEPseBpaIKnKkMLNHZmOnEM5wIs755bg0jv0fhUCCGnDE";
-        var accessToken    = "3838308979-RSBMMC6L1HjI23gZ8EXMiMBGiwv99yeMaUok0ef";
-        var tokenSecret    = "88omD7pr8GuTpLlVqhTbsSjXmB5hsLQk0zy0UnrNlDMCu";
+        // Application-only authでは不要のため削除
+        // var accessToken    = "3838308979-RSBMMC6L1HjI23gZ8EXMiMBGiwv99yeMaUok0ef";
+        // var tokenSecret    = "88omD7pr8GuTpLlVqhTbsSjXmB5hsLQk0zy0UnrNlDMCu";
 
         var count = 10; // 表示する件数
 
@@ -107,43 +128,64 @@ var app = {
         // Twitter APIを使用してTweetを取得する部分
         function getTweets(action, latitude, longitude) {
 
-            var accessor = {
-                consumerSecret: consumerSecret,
-                tokenSecret: tokenSecret
+            // 初期化していなければ何もしない
+            if(bearerToken == null) {
+                return;
+            }
+
+            // 検索するパラメータ
+            var params = {
+                q: "geocode:" + latitude + ',' + longitude + ',' + "1km" + " -I'm", // 検索するキーワード
+                lang: "ja", // 日本語に設定
+                result_type: "recent" // 最新の情報を取得するように設定
             };
 
-            // 送信するパラメータを連想配列で作成
-            var message = {
-                method: "GET", // リクエストの種類
-                action: action,
-                parameters: {
-                    oauth_version: "1.0",
-                    oauth_signature_method: "HMAC-SHA1",
-                    oauth_consumer_key: consumerKey, // コンシューマーキー
-                    oauth_token: accessToken, // アクセストークン
-                    count: count, // 取得する件数
-                    "q": "geocode:" + latitude + ',' + longitude + ',' + "1km" + " -I'm", // 検索するキーワード
-                    "lang": "ja", // 日本語に設定
-                    "result_type": "recent" // 最新の情報を取得するように設定
+            //　Twitterから検索
+            codeBird.__call(
+                "search_tweets",
+                params,
+                function (reply) {
+                    updateTweetList(reply);
                 }
-            };
+            );
 
-            // OAuth認証関係
-            OAuth.setTimestampAndNonce(message);
-            OAuth.SignatureMethod.sign(message, accessor);
-            var url = OAuth.addToURL(message.action, message.parameters);
+            // var accessor = {
+            //     consumerSecret: consumerSecret,
+            //     tokenSecret: tokenSecret
+            // };
 
-            // ajaxによる通信
-            $.ajax({
-                type: message.method,
-                url: url, // リクエスト先のURL
-                cache: true,
-            }).done(function(data){
-                updateTweetList(data);
-            }).fail(function(xhr, ajaxOptions, thrownError){
-                alert(ajaxOptions);
-                alert(thrownError);
-            });
+            // // 送信するパラメータを連想配列で作成
+            // var message = {
+            //     method: "GET", // リクエストの種類
+            //     action: action,
+            //     parameters: {
+            //         oauth_version: "1.0",
+            //         oauth_signature_method: "HMAC-SHA1",
+            //         oauth_consumer_key: consumerKey, // コンシューマーキー
+            //         oauth_token: accessToken, // アクセストークン
+            //         count: count, // 取得する件数
+            //         "q": "geocode:" + latitude + ',' + longitude + ',' + "1km" + " -I'm", // 検索するキーワード
+            //         "lang": "ja", // 日本語に設定
+            //         "result_type": "recent" // 最新の情報を取得するように設定
+            //     }
+            // };
+
+            // // OAuth認証関係
+            // OAuth.setTimestampAndNonce(message);
+            // OAuth.SignatureMethod.sign(message, accessor);
+            // var url = OAuth.addToURL(message.action, message.parameters);
+
+            // // ajaxによる通信
+            // $.ajax({
+            //     type: message.method,
+            //     url: url, // リクエスト先のURL
+            //     cache: true,
+            // }).done(function(data){
+            //     updateTweetList(data);
+            // }).fail(function(xhr, ajaxOptions, thrownError){
+            //     alert(ajaxOptions);
+            //     alert(thrownError);
+            // });
         }
         
         // (デバッグ用)idに検索ボタンと指定されている button要素にクリックイベントを設定

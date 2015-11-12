@@ -33,8 +33,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        //app.receivedEvent('deviceready');
-
         // Define a div tag with id="map_canvas"
         var mapDiv = document.getElementById("map_canvas");
 
@@ -97,12 +95,12 @@ var app = {
 
         // onError Callback receives a PositionError object
         //
-        function onError(error) {
+        var onError = function(error) {
             alert('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
-        }
+        };
 
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 10000, timeout: 20000, enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 27000, enableHighAccuracy: true });
 
         // Application-only authでは不要のため削除
         // var accessToken    = "3838308979-RSBMMC6L1HjI23gZ8EXMiMBGiwv99yeMaUok0ef";
@@ -119,9 +117,19 @@ var app = {
                 var imgsrc = result[i].user.profile_image_url; // ツイートした人のプロフィール画像
                 var content = result[i].text; // ツイートの内容
                 var updated = result[i].created_at; // ツイートした時間
+                var coordinates = result[i].geo.coordinates;
                 var time = "";
                 // Tweet表示エリアに取得したデータを追加していく
                 $(".TweetList").append('<img src="'+imgsrc+'" />' + '<p>' + name + ' | ' + content + ' | ' + updated + '</p>');
+                map.addMarker({
+                    'position': new plugin.google.maps.LatLng(coordinates[0], coordinates[1]),
+                    'title': content,
+                    'icon': {
+                        url: imgsrc
+                    }
+                }, function(marker) {
+                    marker.showInfoWindow();
+                });
             }
         }
 
@@ -207,17 +215,6 @@ var app = {
             // Tweet検索関数の呼び出し
             getTweets(url, "35.691322", "139.709101");
         });
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     }
 };
 

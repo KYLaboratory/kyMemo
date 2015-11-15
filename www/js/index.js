@@ -37,7 +37,17 @@ var app = {
         var mapDiv = document.getElementById("map_canvas");
 
         // Initialize the map plugin
-        var map = plugin.google.maps.Map.getMap(mapDiv);
+        var map = plugin.google.maps.Map.getMap(mapDiv, {
+            'controls': {
+                'compass': true,
+                'myLocationButton': true,
+                'indoorPicker': true,
+                'zoom': true
+            }
+        });
+
+        // マップのカメラを初期位置に移動したか
+        var initializedCameraPosition = false;
 
         // Twitter API利用のための初期化処理
         var consumerKey    = "oDYBiFlyMdlEjGZv6d8DKQ1DF";
@@ -80,11 +90,14 @@ var app = {
                                 'Accuracy: '  + position.coords.accuracy      + '<br>' +
                                 'Timestamp: ' + position.timestamp            + '<br>';
 
-            var targetPosition = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.moveCamera({
-                'target': targetPosition,
-                'zoom': 17
-            });
+            if (!initializedCameraPosition) {
+                var targetPosition = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.moveCamera({
+                    'target': targetPosition,
+                    'zoom': 17
+                });
+                initializedCameraPosition = true;
+            }
 
             // リクエスト先のURL
             var url = "https://api.twitter.com/1.1/search/tweets.json";
@@ -101,10 +114,6 @@ var app = {
         };
 
         var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 27000, enableHighAccuracy: true });
-
-        // Application-only authでは不要のため削除
-        // var accessToken    = "3838308979-RSBMMC6L1HjI23gZ8EXMiMBGiwv99yeMaUok0ef";
-        // var tokenSecret    = "88omD7pr8GuTpLlVqhTbsSjXmB5hsLQk0zy0UnrNlDMCu";
 
         var count = 10; // 表示する件数
 

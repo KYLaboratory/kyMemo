@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https: http: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" charset="UTF-8">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -243,7 +243,9 @@
         <div id="map_canvas"></div>
         <div id="twitter">
             <div class="TweetList">
-                ここにツイートを表示する
+                <ul class="placeline">
+                    ここにツイートを表示する
+                </ul> 
             </div>
         </div>
         <div id="geolocation">geolocation</div>
